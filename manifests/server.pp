@@ -15,12 +15,17 @@
 # == Class: mosquitto
 #
 class mosquitto::server (
-
+  $pid_file = '/var/run/mosquitto.pid',
+  $log_file = '/var/log/mosquitto/mosquitto.log',
+  $persistence_location = '/var/lib/mosquitto/',
 ) {
 
-file {'/etc/mosquitto/mosquitto.conf':
-  ensure => present,
-  content => template('mosquitto/mosquitto.conf.erb'),
-}
-
+  file {'/etc/mosquitto/mosquitto.conf':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('mosquitto/mosquitto.conf.erb'),
+    require => Package['mosquitto'],
+  }
 }
