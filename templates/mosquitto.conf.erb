@@ -595,7 +595,8 @@ log_dest file <%= @log_file %>
 #
 # pattern write sensor/%u/data
 #
-#acl_file
+acl_file /etc/mosquitto/infra_service.acl
+password_file /etc/mosquitto/infra_service.pw
 
 # -----------------------------------------------------------------
 # Authentication and topic access plugin options

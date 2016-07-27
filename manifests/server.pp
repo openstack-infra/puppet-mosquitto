@@ -18,7 +18,33 @@ class mosquitto::server (
   $pid_file = '/var/run/mosquitto.pid',
   $log_file = '/var/log/mosquitto/mosquitto.log',
   $persistence_location = '/var/lib/mosquitto/',
+  $infra_service_username = 'infra',
+  $infra_service_password,
 ) {
+
+  file {'/etc/mosquitto/infra_service.pw':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    replace => true,
+    require => Package['mosquitto'],
+  }
+
+  exec {'passwd_file':
+    command => "/usr/bin/mosquitto_passwd -b /etc/mosquitto/infra_service.pw ${infra_service_username} ${infra_service_password}",
+    require => File['/etc/mosquitto/infra_service.pw']
+  }
+
+  file {'/etc/mosquitto/infra_service.acl':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    replace => true
+    content => template('mosquitto/mosquitto.acl.erb'),
+    require => Exec['passwd_file'],
+  }
 
   file {'/etc/mosquitto/mosquitto.conf':
     ensure  => present,
@@ -26,6 +52,6 @@ class mosquitto::server (
     group   => 'root',
     mode    => '0644',
     content => template('mosquitto/mosquitto.conf.erb'),
-    require => Package['mosquitto'],
+    require => File['/etc/mosquitto/infra_service.acl'],
   }
 }
