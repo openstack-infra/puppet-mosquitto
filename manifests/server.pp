@@ -20,6 +20,7 @@ class mosquitto::server (
   $persistence_location = '/var/lib/mosquitto/',
   $infra_service_username = 'infra',
   $infra_service_password,
+  $websocket_port = 80,
 ) {
 
   file {'/etc/mosquitto/infra_service.pw':
