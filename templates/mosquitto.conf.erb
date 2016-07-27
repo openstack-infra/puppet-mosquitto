@@ -276,10 +276,30 @@ pid_file <%= @pid_file %>
 # listener port-number [ip address/host name]
 #
 
+# Default MQTT Port
 listener 1883
 
+# Default Encrypted MQTT Port
+<% if @enable_tls -%>
+listener 8883
+cafile /etc/mosquitto/ca.crt
+certfile /etc/mosquitto/server.crt
+keyfile /etc/mosquitto/server.key
+require_certificate false
+<% end -%>
+
+# Unencrypted http websocket port
 listener <%= @websocket_port %>
 protocol websockets
+
+# Encrypted http websocket port
+<% if @enable_tls -%>
+listener <%= @webocket_tls_port %>
+cafile /etc/mosquitto/ca.crt
+certfile /etc/mosquitto/server.crt
+keyfile /etc/mosquitto/server.key
+require_certificate false
+<% end -%>
 
 # The maximum number of client connections to allow. This is
 # a per listener setting.

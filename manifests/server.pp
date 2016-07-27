@@ -21,6 +21,11 @@ class mosquitto::server (
   $infra_service_username = 'infra',
   $infra_service_password,
   $websocket_port = 80,
+  $enable_tls = false,
+  $websocket_tls_port = 8080,
+  $ca_file = undef,
+  $cert_file = undef,
+  $key_file = undef,
 ) {
 
   file {'/etc/mosquitto/infra_service.pw':
@@ -45,6 +50,41 @@ class mosquitto::server (
     replace => true,
     content => template('mosquitto/mosquitto.acl.erb'),
     require => Exec['passwd_file'],
+  }
+  if $ca_file != undef {
+    file { '/etc/mosquitto/ca.crt':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0600',
+      content => $ca_file,
+      require => Package['mosquitto'],
+      before  => File['/etc/mosquitto/mosquitto.conf'],
+    }
+  }
+
+  if $cert_file != undef {
+    file { '/etc/mosquitto/server.crt':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0600',
+      content => $cert_file,
+      require => Package['mosquitto'],
+      before  => File['/etc/mosquitto/mosquitto.conf'],
+    }
+  }
+
+  if $key_file != undef {
+    file { '/etc/mosquitto/server.key':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0600',
+      content => $key_file,
+      require => Package['mosquitto'],
+      before  => File['/etc/mosquitto/mosquitto.conf'],
+    }
   }
 
   file {'/etc/mosquitto/mosquitto.conf':
