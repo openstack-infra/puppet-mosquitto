@@ -274,7 +274,12 @@ pid_file <%= @pid_file %>
 # Note that for a websockets listener it is not possible to bind to a host
 # name.
 # listener port-number [ip address/host name]
-#listener
+#
+
+listener 1883
+
+listener <%= @websocket_port %>
+protocol websockets
 
 # The maximum number of client connections to allow. This is 
 # a per listener setting.
