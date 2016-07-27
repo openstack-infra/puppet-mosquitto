@@ -21,6 +21,11 @@ class mosquitto::server (
   $infra_service_username = 'infra',
   $infra_service_password,
   $websocket_port = 80,
+  $enable_tls = false,
+  $websocket_tls_port = 8080
+  $ca_file = '/etc/mosquitto/ca_certificates/ca.crt'
+  $cert_file = '/etc/mosquitto/certs/server.crt'
+  $key_file = '/etc/mosquitto/certs/server.key'
 ) {
 
   file {'/etc/mosquitto/infra_service.pw':
