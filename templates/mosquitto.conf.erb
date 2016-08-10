@@ -294,7 +294,7 @@ protocol websockets
 
 # Encrypted http websocket port
 <% if @enable_tls -%>
-listener <%= @webocket_tls_port %>
+listener <%= @websocket_tls_port %>
 cafile /etc/mosquitto/ca.crt
 certfile /etc/mosquitto/server.crt
 keyfile /etc/mosquitto/server.key
