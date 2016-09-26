@@ -9,6 +9,9 @@
 #
 class mosquitto (
 ) {
+    # TODO: can drop this PPA once the service is running on Ubuntu 18.04
+    apt::ppa { 'ppa:mosquitto-dev/mosquitto-ppa': }
+
     package {'mosquitto':
       ensure => present,
     }
