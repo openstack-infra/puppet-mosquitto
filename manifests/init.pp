@@ -9,6 +9,9 @@
 #
 class mosquitto (
 ) {
+    include apt
+    apt::ppa {'ppa:mosquitto-dev/mosquitto-ppa'}
+
     package {'mosquitto':
       ensure => present,
     }
