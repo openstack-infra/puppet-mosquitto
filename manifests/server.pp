@@ -15,11 +15,11 @@
 # == Class: mosquitto
 #
 class mosquitto::server (
+  $infra_service_password,
   $pid_file = '/var/run/mosquitto.pid',
   $log_file = '/var/log/mosquitto/mosquitto.log',
   $persistence_location = '/var/lib/mosquitto/',
   $infra_service_username = 'infra',
-  $infra_service_password,
   $websocket_port = 80,
   $enable_tls = false,
   $websocket_tls_port = 8080,
