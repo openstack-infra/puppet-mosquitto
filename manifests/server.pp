@@ -22,6 +22,7 @@ class mosquitto::server (
   $infra_service_username = 'infra',
   $websocket_port = 80,
   $enable_tls = false,
+  $enable_tls_websocket = false,
   $websocket_tls_port = 8080,
   $ca_file = undef,
   $cert_file = undef,
