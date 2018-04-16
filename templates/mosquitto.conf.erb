@@ -293,7 +293,7 @@ listener <%= @websocket_port %>
 protocol websockets
 
 # Encrypted http websocket port
-<% if @enable_websocket_tls -%>
+<% if @enable_tls_websocket -%>
 listener <%= @websocket_tls_port %>
 cafile /etc/mosquitto/ca.crt
 certfile /etc/mosquitto/server.crt
