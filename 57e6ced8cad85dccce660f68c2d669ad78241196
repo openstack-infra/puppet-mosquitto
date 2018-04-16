@@ -1,0 +1,9 @@
+Code-Review+2: James E. Blair <corvus@inaugust.com>
+Code-Review+2: Matthew Treinish <mtreinish@kortar.org>
+Workflow+1: Matthew Treinish <mtreinish@kortar.org>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Mon, 16 Apr 2018 17:05:43 +0000
+Reviewed-on: https://review.openstack.org/561664
+Project: openstack-infra/puppet-mosquitto
+Branch: refs/heads/master
